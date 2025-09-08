@@ -141,13 +141,11 @@ func (h *Handler) GetOrder(w http.ResponseWriter, r *http.Request) {
 
 	h.logger.LogInfo(fmt.Sprintf("Retrieved order %s for store %s", orderID, storeID))
 	response.WriteJSON(w, http.StatusOK, map[string]interface{}{
-		"order": map[string]interface{}{
-			"id":           order.ID,
-			"menu_item_id": order.MenuItemID,
-			"menu_name":    order.MenuName,
-			"order_number": order.OrderNumber,
-			"status":       order.Status,
-		},
+		"id":           order.ID,
+		"menu_item_id": order.MenuItemID,
+		"menu_name":    order.MenuName,
+		"order_number": order.OrderNumber,
+		"status":       order.Status,
 	})
 }
 

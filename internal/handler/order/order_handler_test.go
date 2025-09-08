@@ -73,7 +73,7 @@ func TestOrderHandler(t *testing.T) {
 		wantCode int
 		wantBody string
 	}{
-		{"GetOrder success", "GetOrder", http.MethodGet, validStoreID, validOrderID, "", true, order, nil, nil, http.StatusOK, "order"},
+		{"GetOrder success", "GetOrder", http.MethodGet, validStoreID, validOrderID, "", true, order, nil, nil, http.StatusOK, `{"id":"store-1-1","menu_item_id":"m1","menu_name":"test","order_number":1,"status":"pending"}`},
 		{"GetOrder invalid method", "GetOrder", http.MethodPost, validStoreID, validOrderID, "", true, order, nil, nil, http.StatusMethodNotAllowed, "Method not allowed"},
 		{"GetOrder store not found", "GetOrder", http.MethodGet, "invalid", validOrderID, "", false, order, nil, nil, http.StatusNotFound, "Store not found"},
 		{"GetOrder invalid order id format", "GetOrder", http.MethodGet, validStoreID, "badid", "", true, order, nil, nil, http.StatusBadRequest, "Invalid order ID format"},
