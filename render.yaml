@@ -1,0 +1,23 @@
+# Render Blueprint: かき氷API
+# https://render.com/docs/blueprint-spec
+#
+# 注意: このAPIは注文をメモリ上に持つため、インスタンスは必ず1つに保つこと。
+# 無料プランは1インスタンス固定なので条件を満たしている。
+services:
+  - type: web
+    name: kakigori-api
+    runtime: docker
+    plan: free
+    region: singapore
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /health
+    envVars:
+      - key: KAKIGORI_STORE_IDS
+        value: store-001,store-002
+      - key: KAKIGORI_MAX_ORDERS
+        value: "1000"
+      # 会場のWi-Fiは全員が同じグローバルIPに見えるため、
+      # デフォルト(10 req/秒で3時間ブロック)のままだと観客全員が締め出される。
+      # 発表用に実質無効化しておく。
+      - key: KAKIGORI_STORE_MAX_REQUESTS
+        value: "100000"
